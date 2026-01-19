@@ -16,8 +16,9 @@
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background: linear-gradient(to bottom, #eaf6ff, #f7fbff);
   color: var(--text);
   line-height: 1.6;
@@ -142,17 +143,44 @@ input[type="search"]:focus {
 }
 
 .category-card {
-  background: rgba(255, 255, 255, 0.75);
-  border-radius: 16px;
   padding: 20px;
-  border: 1px solid var(--border);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: #1f2933;
+  font-size: 1.1rem;
   text-align: center;
   cursor: pointer;
   min-height: 110px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 200ms ease, box-shadow 200ms ease;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.category-card.card-animate {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.category-card.card-animate.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+  .category-card {
+    filter: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .category-card span {
@@ -165,33 +193,11 @@ input[type="search"]:focus {
   color: var(--muted);
 }
 
-.category-card:hover,
-.category-card:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-}
-
 .category-card.active {
   border-color: var(--accent);
   box-shadow: 0 12px 26px rgba(60, 110, 113, 0.18);
 }
 
-.card-animate {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 500ms ease, transform 500ms ease;
-}
-
-.card-animate.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
-  .category-card {
-    background: rgba(255, 255, 255, 0.9);
-  }
-}
 
 .category-detail {
   background: var(--card);
@@ -337,14 +343,16 @@ input[type="search"]:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-animate,
-  .card-animate.show {
-    transition: none;
-    transform: none;
-    opacity: 1;
+  html {
+    scroll-behavior: auto;
   }
 
-  .category-card {
-    transition: none;
+  .category-card,
+  .category-card:hover,
+  .category-card.card-animate,
+  .category-card.card-animate.show {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
