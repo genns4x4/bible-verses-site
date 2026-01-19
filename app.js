@@ -514,33 +514,6 @@ const categoryDescriptions = {
   "Strength During Hard Times": "Support for enduring seasons, with God close beside you.",
 };
 
-// Mood color swatches for category cards.
-const moodColors = {
-  anxiety: "#dbeafe",
-  depression: "#e9d5ff",
-  loneliness: "#fde2e4",
-  finance: "#dcfce7",
-  toxic: "#fee2e2",
-  faith: "#fef9c3",
-};
-
-// Map each category to one of the mood swatches.
-const categoryMoods = {
-  "Anxiety & Worry": "anxiety",
-  "Depression & Sadness": "depression",
-  Loneliness: "loneliness",
-  Fear: "anxiety",
-  "Addiction & Temptation": "faith",
-  "Toxic Relationships": "toxic",
-  "Heartbreak & Betrayal": "depression",
-  "Financial Stress": "finance",
-  "Hope & Encouragement": "faith",
-  "Faith When You Feel Weak": "faith",
-  "Peace & Rest": "faith",
-  Forgiveness: "faith",
-  "Strength During Hard Times": "faith",
-};
-
 const categoryGrid = document.getElementById("category-grid");
 const categoryTitle = document.getElementById("category-title");
 const categoryDescription = document.getElementById("category-description");
@@ -552,7 +525,6 @@ const showAllButton = document.getElementById("show-all");
 const backButton = document.getElementById("back-to-categories");
 
 let selectedCategory = null;
-let hasAnimatedCards = false;
 
 const allCategories = new Set(categoryOrder);
 
@@ -604,7 +576,6 @@ const renderCategories = () => {
     const card = document.createElement("button");
     card.type = "button";
     card.className = "category-card";
-    card.dataset.mood = categoryMoods[category] || "";
     if (selectedCategory === category) {
       card.classList.add("active");
       card.setAttribute("aria-pressed", "true");
@@ -618,11 +589,6 @@ const renderCategories = () => {
     card.addEventListener("click", () => setCategory(category));
     categoryGrid.appendChild(card);
   });
-
-  hydrateCategoryCards();
-  if (hasAnimatedCards) {
-    document.querySelectorAll(".category-card").forEach((card) => card.classList.add("show"));
-  }
 };
 
 const buildVerseCard = (verse) => {
