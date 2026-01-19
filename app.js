@@ -550,6 +550,21 @@ const resultsCount = document.getElementById("results-count");
 const status = document.getElementById("status");
 const showAllButton = document.getElementById("show-all");
 const backButton = document.getElementById("back-to-categories");
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+const THEME_KEY = "theme";
+
+const getStoredTheme = () => localStorage.getItem(THEME_KEY);
+
+const getPreferredTheme = () =>
+  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+const applyTheme = (mode) => {
+  document.body.dataset.theme = mode;
+  if (darkModeToggle) {
+    darkModeToggle.setAttribute("aria-pressed", mode === "dark");
+    darkModeToggle.textContent = mode === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+  }
+};
 
 let selectedCategory = null;
 let hasAnimatedCards = false;
@@ -798,6 +813,18 @@ const animateCategoryCards = () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  const storedTheme = getStoredTheme();
+  const initialTheme = storedTheme || getPreferredTheme();
+  applyTheme(initialTheme);
+
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener("click", () => {
+      const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+      localStorage.setItem(THEME_KEY, nextTheme);
+    });
+  }
+
   searchInput.addEventListener("input", () => renderVerses());
   showAllButton.addEventListener("click", () => setCategory(null));
   backButton.addEventListener("click", () => {

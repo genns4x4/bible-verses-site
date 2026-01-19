@@ -1,6 +1,7 @@
 :root {
   color-scheme: light;
   --bg: #f5f7fb;
+  --bg-alt: #eaf6ff;
   --card: #ffffff;
   --text: #1e2a32;
   --muted: #5e6b75;
@@ -9,6 +10,23 @@
   --border: #d8dee6;
   --shadow: 0 12px 30px rgba(30, 42, 50, 0.1);
   --radius: 18px;
+  --hero-cross: rgba(180, 214, 210, 0.55);
+  --hero-glow: rgba(114, 166, 164, 0.3);
+}
+
+body[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1620;
+  --bg-alt: #101a24;
+  --card: #17212b;
+  --text: #f3f6fa;
+  --muted: #b2c0cc;
+  --accent: #7fb5b7;
+  --accent-soft: #28414a;
+  --border: #263441;
+  --shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  --hero-cross: rgba(255, 202, 158, 0.45);
+  --hero-glow: rgba(255, 196, 146, 0.35);
 }
 
 * {
@@ -19,7 +37,7 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(to bottom, #eaf6ff, #f7fbff);
+  background: linear-gradient(to bottom, var(--bg-alt), var(--bg));
   color: var(--text);
   line-height: 1.6;
 }
@@ -30,46 +48,86 @@ img {
 }
 
 .site-header {
-  padding: 2.5rem 1.5rem 1.5rem;
-  background: linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
-  max-width: 1100px;
+  padding: 3.5rem 1.5rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero {
+  position: relative;
+  max-width: 900px;
   margin: 0 auto;
+  text-align: center;
+  display: grid;
+  place-items: center;
 }
 
-.logo-title {
+.hero-media {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-cross {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 40%,
+      var(--hero-cross) 40%,
+      var(--hero-cross) 60%,
+      transparent 60%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to right,
+      transparent 0%,
+      transparent 44%,
+      var(--hero-cross) 44%,
+      var(--hero-cross) 56%,
+      transparent 56%,
+      transparent 100%
+    );
+  border-radius: 30px;
+  box-shadow: 0 0 50px var(--hero-glow), 0 0 90px var(--hero-glow);
+  opacity: 0.7;
+}
+
+.hero-logo {
+  width: min(260px, 45vw);
+  opacity: 0.18;
+  z-index: 1;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.logo {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  object-fit: contain;
-  box-shadow: var(--shadow);
-  background: var(--card);
-  padding: 0.5rem;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin: 0 0 0.25rem;
 }
 
 h1 {
   margin: 0;
-  font-size: 1.9rem;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
 }
 
 .intro {
-  margin: 0;
-  max-width: 48rem;
+  margin: 0.75rem 0 0;
+  max-width: 38rem;
   color: var(--muted);
+}
+
+.dark-toggle {
+  margin-top: 1.5rem;
 }
 
 main {
@@ -106,7 +164,7 @@ input[type="search"] {
   border-radius: 999px;
   border: 1px solid var(--border);
   font-size: 1rem;
-  background: #fff;
+  background: var(--card);
   color: var(--text);
 }
 
@@ -145,13 +203,13 @@ input[type="search"]:focus {
 .category-card {
   padding: 20px;
   border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  color: #1f2933;
+  border: 1px solid var(--border);
+  color: var(--text);
   font-size: 1.1rem;
   text-align: center;
   cursor: pointer;
   min-height: 110px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow);
   transition: transform 200ms ease, box-shadow 200ms ease;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -159,7 +217,7 @@ input[type="search"]:focus {
 
 .category-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
 }
 
 .category-card.card-animate {
@@ -244,7 +302,7 @@ html {
   border-radius: var(--radius);
   padding: 1.5rem;
   border: 1px solid var(--border);
-  box-shadow: 0 10px 20px rgba(30, 42, 50, 0.08);
+  box-shadow: var(--shadow);
 }
 
 .verse-text {
@@ -276,6 +334,7 @@ html {
   font-size: 0.95rem;
   cursor: pointer;
   font-weight: 600;
+  color: var(--text);
 }
 
 .back-btn {
@@ -330,9 +389,13 @@ html {
 }
 
 @media (max-width: 640px) {
-  .logo-title {
-    flex-direction: column;
-    align-items: flex-start;
+  .site-header {
+    padding: 3rem 1.25rem 2rem;
+  }
+
+  .hero-cross {
+    width: 180px;
+    height: 180px;
   }
 
   .back-btn {
