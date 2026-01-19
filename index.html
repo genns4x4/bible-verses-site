@@ -1,1 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calm Bible Verses by Feeling</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="logo-title">
+        <img src="assets/bible-logo.png" alt="Bible logo" class="logo" />
+        <div>
+          <p class="eyebrow">Bible Verses for the Heart</p>
+          <h1>Find Comfort for How You Feel</h1>
+        </div>
+      </div>
+      <p class="intro">
+        Choose a feeling to see gentle, hope-filled verses and reflections. Search any word to
+        filter the verses you see.
+      </p>
+    </header>
 
+    <main>
+      <section class="controls" aria-label="Search and filters">
+        <label for="search" class="search-label">Search by keyword</label>
+        <div class="search-row">
+          <input
+            id="search"
+            name="search"
+            type="search"
+            placeholder="Search verse text or reference"
+            autocomplete="off"
+          />
+          <button class="btn secondary" id="show-all">Show All</button>
+        </div>
+        <p class="results" id="results-count" aria-live="polite"></p>
+      </section>
+
+      <section class="categories" aria-label="Feelings and topics">
+        <div class="section-title">
+          <h2>Choose a category</h2>
+          <p>Tap a card to focus on a specific feeling or need.</p>
+        </div>
+        <div class="category-grid" id="category-grid"></div>
+      </section>
+
+      <section class="category-detail" id="category-detail" aria-live="polite">
+        <div class="detail-header">
+          <div>
+            <p class="detail-label">Selected Category</p>
+            <h2 id="category-title">All Verses</h2>
+            <p id="category-description"></p>
+          </div>
+          <button class="btn ghost back-btn" id="back-to-categories">Back to categories</button>
+        </div>
+      </section>
+
+      <section class="verses" aria-label="Verses">
+        <div id="verse-list" class="verse-list"></div>
+      </section>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </main>
+
+    <footer class="site-footer">
+      <p>“This site offers spiritual encouragement and is not a substitute for professional help.”</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
