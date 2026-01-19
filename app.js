@@ -514,10 +514,37 @@ const categoryDescriptions = {
   "Strength During Hard Times": "Support for enduring seasons, with God close beside you.",
 };
 
+const moodColors = {
+  anxiety: "#dbeafe",
+  depression: "#e9d5ff",
+  loneliness: "#fde2e4",
+  finance: "#dcfce7",
+  toxic: "#fee2e2",
+  faith: "#fef9c3",
+};
+
+const categoryMoodMap = {
+  "Anxiety & Worry": "anxiety",
+  "Depression & Sadness": "depression",
+  Loneliness: "loneliness",
+  Fear: "anxiety",
+  "Addiction & Temptation": "toxic",
+  "Toxic Relationships": "toxic",
+  "Heartbreak & Betrayal": "depression",
+  "Financial Stress": "finance",
+  "Hope & Encouragement": "faith",
+  "Faith When You Feel Weak": "faith",
+  "Peace & Rest": "faith",
+  Forgiveness: "faith",
+  "Strength During Hard Times": "faith",
+};
+
 const categoryGrid = document.getElementById("category-grid");
 const categoryTitle = document.getElementById("category-title");
 const categoryDescription = document.getElementById("category-description");
-const verseList = document.getElementById("verse-list");
+const versesSection = document.getElementById("verses-section");
+const versesTitle = document.getElementById("verses-title");
+const verseList = document.getElementById("verses-container");
 const searchInput = document.getElementById("search");
 const resultsCount = document.getElementById("results-count");
 const status = document.getElementById("status");
@@ -525,6 +552,7 @@ const showAllButton = document.getElementById("show-all");
 const backButton = document.getElementById("back-to-categories");
 
 let selectedCategory = null;
+let hasAnimatedCards = false;
 
 const allCategories = new Set(categoryOrder);
 
@@ -556,6 +584,7 @@ const setCategory = (category, { updateUrl = true } = {}) => {
   renderCategories();
   renderVerses();
   updateDetail();
+  setVersesHeading(selectedCategory);
 };
 
 const updateDetail = () => {
@@ -568,6 +597,31 @@ const updateDetail = () => {
   }
 };
 
+const setVersesHeading = (label) => {
+  if (!versesTitle) return;
+  versesTitle.textContent = label ? `Verses — ${label}` : "Verses";
+};
+
+const handleCategorySelection = (card) => {
+  const categoryKey = card.dataset.category || card.dataset.mood;
+  if (!categoryKey) return;
+
+  if (typeof renderVersesForCategory === "function") {
+    renderVersesForCategory(categoryKey);
+  } else if (typeof showCategory === "function") {
+    showCategory(categoryKey);
+  } else if (typeof setCategory === "function") {
+    setCategory(categoryKey);
+  }
+
+  const label = card.querySelector("span")?.textContent?.trim() || card.textContent.trim();
+  setVersesHeading(label);
+
+  if (versesSection) {
+    versesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
 // Render tappable category cards from data.
 const renderCategories = () => {
   categoryGrid.innerHTML = "";
@@ -576,6 +630,8 @@ const renderCategories = () => {
     const card = document.createElement("button");
     card.type = "button";
     card.className = "category-card";
+    card.dataset.category = category;
+    card.dataset.mood = categoryMoodMap[category] || "faith";
     if (selectedCategory === category) {
       card.classList.add("active");
       card.setAttribute("aria-pressed", "true");
@@ -586,9 +642,18 @@ const renderCategories = () => {
       <span>${category}</span>
       <small>${count} verses</small>
     `;
-    card.addEventListener("click", () => setCategory(category));
+    card.addEventListener("click", () => handleCategorySelection(card));
     categoryGrid.appendChild(card);
   });
+  hydrateCategoryCards();
+  if (hasAnimatedCards) {
+    document.querySelectorAll(".category-card").forEach((card) => {
+      card.classList.add("show");
+    });
+  } else {
+    animateCategoryCards();
+    hasAnimatedCards = true;
+  }
 };
 
 const buildVerseCard = (verse) => {
@@ -732,22 +797,18 @@ const animateCategoryCards = () => {
   });
 };
 
-searchInput.addEventListener("input", () => renderVerses());
-showAllButton.addEventListener("click", () => setCategory(null));
-backButton.addEventListener("click", () => {
-  document.querySelector(".categories").scrollIntoView({ behavior: "smooth" });
-});
-
-window.addEventListener("hashchange", () => {
-  const category = getCategoryFromHash();
-  setCategory(category, { updateUrl: false });
-});
-
-const initialCategory = getCategoryFromHash();
-setCategory(initialCategory, { updateUrl: false });
-
 document.addEventListener("DOMContentLoaded", () => {
-  hydrateCategoryCards();
-  animateCategoryCards();
-  hasAnimatedCards = true;
+  searchInput.addEventListener("input", () => renderVerses());
+  showAllButton.addEventListener("click", () => setCategory(null));
+  backButton.addEventListener("click", () => {
+    document.querySelector(".categories").scrollIntoView({ behavior: "smooth" });
+  });
+
+  window.addEventListener("hashchange", () => {
+    const category = getCategoryFromHash();
+    setCategory(category, { updateUrl: false });
+  });
+
+  const initialCategory = getCategoryFromHash();
+  setCategory(initialCategory, { updateUrl: false });
 });
