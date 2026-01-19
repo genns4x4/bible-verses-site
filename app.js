@@ -709,6 +709,29 @@ const shareVerse = async (verse) => {
   status.textContent = "Sharing not supported; verse copied instead.";
 };
 
+// Apply mood colors and animation base class to category cards.
+const hydrateCategoryCards = () => {
+  const cards = document.querySelectorAll(".category-card");
+  cards.forEach((card) => {
+    const mood = card.dataset.mood;
+    if (mood && moodColors[mood]) {
+      card.style.backgroundColor = moodColors[mood];
+    }
+    card.classList.add("card-animate");
+  });
+};
+
+// Animate category cards in with a gentle stagger.
+const animateCategoryCards = () => {
+  const cards = document.querySelectorAll(".category-card");
+  cards.forEach((card, index) => {
+    card.classList.remove("show");
+    setTimeout(() => {
+      card.classList.add("show");
+    }, 80 * index);
+  });
+};
+
 searchInput.addEventListener("input", () => renderVerses());
 showAllButton.addEventListener("click", () => setCategory(null));
 backButton.addEventListener("click", () => {
@@ -722,3 +745,9 @@ window.addEventListener("hashchange", () => {
 
 const initialCategory = getCategoryFromHash();
 setCategory(initialCategory, { updateUrl: false });
+
+document.addEventListener("DOMContentLoaded", () => {
+  hydrateCategoryCards();
+  animateCategoryCards();
+  hasAnimatedCards = true;
+});
