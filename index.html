@@ -6,7 +6,7 @@
     <title>Calm Bible Verses by Feeling</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="dark">
     <header class="site-header">
       <div class="hero">
         <div class="hero-media" aria-hidden="true">
@@ -16,32 +16,14 @@
         <div class="hero-content">
           <h1>Bible Verses for the Heart</h1>
           <p class="intro">
-            Choose a feeling to see gentle, hope-filled verses and reflections. Search any word to
-            filter the verses you see.
+            Choose a feeling to see gentle, hope-filled verses and reflections designed for quiet
+            moments.
           </p>
-          <button class="btn ghost dark-toggle" id="dark-mode-toggle" type="button">
-            🌙 Dark Mode
-          </button>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="controls" aria-label="Search and filters">
-        <label for="search" class="search-label">Search by keyword</label>
-        <div class="search-row">
-          <input
-            id="search"
-            name="search"
-            type="search"
-            placeholder="Search verse text or reference"
-            autocomplete="off"
-          />
-          <button class="btn secondary" id="show-all">Show All</button>
-        </div>
-        <p class="results" id="results-count" aria-live="polite"></p>
-      </section>
-
       <section class="categories" aria-label="Feelings and topics">
         <div class="section-title">
           <h2>Choose a category</h2>
@@ -67,10 +49,40 @@
         <div id="verses-container" class="verse-list"></div>
       </section>
       <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <section class="checkin" aria-label="Anonymous check-in">
+        <div class="section-title">
+          <h2>Anonymous Check-In</h2>
+          <p>Leave a message about how you’re feeling. No names required.</p>
+        </div>
+        <form class="checkin-form" id="checkin-form">
+          <label class="sr-only" for="checkin-text">Anonymous message</label>
+          <textarea
+            id="checkin-text"
+            name="checkin-text"
+            rows="4"
+            placeholder="Type your message here..."
+            required
+          ></textarea>
+          <button class="btn secondary" type="submit">Submit</button>
+          <p class="checkin-confirmation" id="checkin-confirmation" aria-live="polite"></p>
+        </form>
+        <div class="checkin-messages">
+          <h3>Recent check-ins</h3>
+          <ul id="checkin-list"></ul>
+        </div>
+        <p class="checkin-disclaimer">
+          If you are in immediate danger or considering self-harm, please call your local emergency
+          number right now.
+        </p>
+      </section>
     </main>
 
+    <button class="scroll-top" id="scroll-top" type="button">↑ Top</button>
+
     <footer class="site-footer">
-      <p>“This site offers spiritual encouragement and is not a substitute for professional help.”</p>
+      <p>GOD LOVES YOU NO MATTER WHAT.</p>
+      <p class="footer-glow">POWERED BY GOD'S CHILD</p>
     </footer>
 
     <script src="app.js"></script>

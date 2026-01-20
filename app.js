@@ -545,26 +545,14 @@ const categoryDescription = document.getElementById("category-description");
 const versesSection = document.getElementById("verses-section");
 const versesTitle = document.getElementById("verses-title");
 const verseList = document.getElementById("verses-container");
-const searchInput = document.getElementById("search");
-const resultsCount = document.getElementById("results-count");
 const status = document.getElementById("status");
-const showAllButton = document.getElementById("show-all");
 const backButton = document.getElementById("back-to-categories");
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-const THEME_KEY = "theme";
-
-const getStoredTheme = () => localStorage.getItem(THEME_KEY);
-
-const getPreferredTheme = () =>
-  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-
-const applyTheme = (mode) => {
-  document.body.dataset.theme = mode;
-  if (darkModeToggle) {
-    darkModeToggle.setAttribute("aria-pressed", mode === "dark");
-    darkModeToggle.textContent = mode === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
-  }
-};
+const scrollTopButton = document.getElementById("scroll-top");
+const checkinForm = document.getElementById("checkin-form");
+const checkinText = document.getElementById("checkin-text");
+const checkinList = document.getElementById("checkin-list");
+const checkinConfirmation = document.getElementById("checkin-confirmation");
+const CHECKIN_KEY = "anonymousCheckins";
 
 let selectedCategory = null;
 let hasAnimatedCards = false;
@@ -608,7 +596,7 @@ const updateDetail = () => {
     categoryDescription.textContent = categoryDescriptions[selectedCategory] || "";
   } else {
     categoryTitle.textContent = "All Verses";
-    categoryDescription.textContent = "Browse every category or refine the list with the search box.";
+    categoryDescription.textContent = "Browse every category and let each verse meet you where you are.";
   }
 };
 
@@ -718,15 +706,11 @@ const buildVerseCard = (verse) => {
   return card;
 };
 
-// Render verse cards based on selected category + search query.
+// Render verse cards based on selected category.
 const renderVerses = () => {
-  const query = searchInput.value.trim().toLowerCase();
   const filtered = verses.filter((verse) => {
     const matchesCategory = selectedCategory ? verse.category === selectedCategory : true;
-    const matchesQuery = query
-      ? verse.text.toLowerCase().includes(query) || verse.reference.toLowerCase().includes(query)
-      : true;
-    return matchesCategory && matchesQuery;
+    return matchesCategory;
   });
 
   verseList.innerHTML = "";
@@ -734,8 +718,6 @@ const renderVerses = () => {
     verseList.appendChild(buildVerseCard(verse));
   });
 
-  const categoryLabel = selectedCategory ? selectedCategory : "all categories";
-  resultsCount.textContent = `${filtered.length} verses shown for ${categoryLabel}.`;
 };
 
 // Clipboard helper with graceful fallback.
@@ -812,21 +794,86 @@ const animateCategoryCards = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  const storedTheme = getStoredTheme();
-  const initialTheme = storedTheme || getPreferredTheme();
-  applyTheme(initialTheme);
-
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener("click", () => {
-      const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-      applyTheme(nextTheme);
-      localStorage.setItem(THEME_KEY, nextTheme);
-    });
+const getStoredCheckins = () => {
+  if (!localStorage.getItem(CHECKIN_KEY)) {
+    return [];
   }
+  try {
+    const parsed = JSON.parse(localStorage.getItem(CHECKIN_KEY));
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    return [];
+  }
+};
 
-  searchInput.addEventListener("input", () => renderVerses());
-  showAllButton.addEventListener("click", () => setCategory(null));
+const formatTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  if (Number.isNaN(date.getTime())) {
+    return "Just now";
+  }
+  return date.toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+};
+
+const renderCheckins = () => {
+  if (!checkinList) return;
+  const checkins = getStoredCheckins();
+  const recent = checkins.slice(-5).reverse();
+  checkinList.innerHTML = "";
+  if (recent.length === 0) {
+    const emptyItem = document.createElement("li");
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "checkin-message";
+    emptyMessage.textContent = "No check-ins yet. Be the first to share.";
+    emptyItem.appendChild(emptyMessage);
+    checkinList.appendChild(emptyItem);
+    return;
+  }
+  recent.forEach((entry) => {
+    const item = document.createElement("li");
+    const message = document.createElement("p");
+    message.className = "checkin-message";
+    message.textContent = entry.text;
+    const time = document.createElement("span");
+    time.className = "checkin-time";
+    time.textContent = formatTimestamp(entry.timestamp);
+    message.appendChild(time);
+    item.appendChild(message);
+    checkinList.appendChild(item);
+  });
+};
+
+const handleCheckinSubmit = (event) => {
+  event.preventDefault();
+  const message = checkinText.value.trim();
+  if (!message) return;
+  const checkins = getStoredCheckins();
+  checkins.push({
+    text: message,
+    timestamp: new Date().toISOString(),
+  });
+  localStorage.setItem(CHECKIN_KEY, JSON.stringify(checkins));
+  checkinText.value = "";
+  if (checkinConfirmation) {
+    checkinConfirmation.textContent = "Thank you. You’re not alone.";
+  }
+  renderCheckins();
+};
+
+const toggleScrollTopButton = () => {
+  if (!scrollTopButton) return;
+  if (window.scrollY > 300) {
+    scrollTopButton.classList.add("show");
+  } else {
+    scrollTopButton.classList.remove("show");
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
   backButton.addEventListener("click", () => {
     document.querySelector(".categories").scrollIntoView({ behavior: "smooth" });
   });
@@ -838,4 +885,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initialCategory = getCategoryFromHash();
   setCategory(initialCategory, { updateUrl: false });
+  renderCheckins();
+  toggleScrollTopButton();
+
+  if (checkinForm) {
+    checkinForm.addEventListener("submit", handleCheckinSubmit);
+  }
+
+  if (scrollTopButton) {
+    scrollTopButton.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  window.addEventListener("scroll", toggleScrollTopButton);
 });
