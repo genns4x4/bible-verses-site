@@ -285,6 +285,13 @@ html {
   color: var(--accent);
 }
 
+.verse-explanation {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
 .reflection {
   margin: 0.75rem 0 0;
   color: var(--muted);
