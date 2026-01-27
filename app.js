@@ -1,517 +1,382 @@
 // Verse library: keep all data in one place for fast loading.
-const verses = [
-  {
-    id: "anxiety-1",
-    category: "Anxiety & Worry",
-    reference: "Philippians 4:6–7",
-    text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.",
-    reflection: "Let your worries become a conversation with God, one breath at a time.",
-  },
-  {
-    id: "anxiety-2",
-    category: "Anxiety & Worry",
-    reference: "Matthew 6:34",
-    text: "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own.",
-    reflection: "Today is all you have to carry right now.",
-  },
-  {
-    id: "anxiety-3",
-    category: "Anxiety & Worry",
-    reference: "1 Peter 5:7",
-    text: "Cast all your anxiety on him because he cares for you.",
-    reflection: "You are not a burden; you are cared for.",
-  },
-  {
-    id: "anxiety-4",
-    category: "Anxiety & Worry",
-    reference: "Psalm 94:19",
-    text: "When anxiety was great within me, your consolation brought me joy.",
-  },
-  {
-    id: "anxiety-5",
-    category: "Anxiety & Worry",
-    reference: "Isaiah 41:10",
-    text: "So do not fear, for I am with you; do not be dismayed, for I am your God.",
-    reflection: "God’s presence is steady even when your thoughts are not.",
-  },
-  {
-    id: "anxiety-6",
-    category: "Anxiety & Worry",
-    reference: "Psalm 56:3",
-    text: "When I am afraid, I put my trust in you.",
-  },
-  {
-    id: "depression-1",
-    category: "Depression & Sadness",
-    reference: "Psalm 34:18",
-    text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
-    reflection: "You are not far from God when you feel low.",
-  },
-  {
-    id: "depression-2",
-    category: "Depression & Sadness",
-    reference: "Lamentations 3:22–23",
-    text: "Because of the Lord’s great love we are not consumed, for his compassions never fail. They are new every morning.",
-  },
-  {
-    id: "depression-3",
-    category: "Depression & Sadness",
-    reference: "Psalm 42:11",
-    text: "Why, my soul, are you downcast? Put your hope in God, for I will yet praise him.",
-  },
-  {
-    id: "depression-4",
-    category: "Depression & Sadness",
-    reference: "Isaiah 53:4",
-    text: "Surely he took up our pain and bore our suffering.",
-    reflection: "Jesus knows what pain feels like.",
-  },
-  {
-    id: "depression-5",
-    category: "Depression & Sadness",
-    reference: "Psalm 30:5",
-    text: "Weeping may stay for the night, but rejoicing comes in the morning.",
-  },
-  {
-    id: "depression-6",
-    category: "Depression & Sadness",
-    reference: "John 16:33",
-    text: "In this world you will have trouble. But take heart! I have overcome the world.",
-  },
-  {
-    id: "lonely-1",
-    category: "Loneliness",
-    reference: "Deuteronomy 31:6",
-    text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
-  },
-  {
-    id: "lonely-2",
-    category: "Loneliness",
-    reference: "Psalm 68:6",
-    text: "God sets the lonely in families.",
-    reflection: "You are seen, and you belong.",
-  },
-  {
-    id: "lonely-3",
-    category: "Loneliness",
-    reference: "Matthew 28:20",
-    text: "Surely I am with you always, to the very end of the age.",
-  },
-  {
-    id: "lonely-4",
-    category: "Loneliness",
-    reference: "Psalm 23:4",
-    text: "Even though I walk through the darkest valley, I will fear no evil, for you are with me.",
-  },
-  {
-    id: "lonely-5",
-    category: "Loneliness",
-    reference: "Isaiah 43:2",
-    text: "When you pass through the waters, I will be with you.",
-  },
-  {
-    id: "lonely-6",
-    category: "Loneliness",
-    reference: "Hebrews 13:5",
-    text: "Never will I leave you; never will I forsake you.",
-  },
-  {
-    id: "fear-1",
-    category: "Fear",
-    reference: "Psalm 27:1",
-    text: "The Lord is my light and my salvation—whom shall I fear?",
-  },
-  {
-    id: "fear-2",
-    category: "Fear",
-    reference: "2 Timothy 1:7",
-    text: "For God has not given us a spirit of fear, but of power, love, and a sound mind.",
-  },
-  {
-    id: "fear-3",
-    category: "Fear",
-    reference: "Joshua 1:9",
-    text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
-  },
-  {
-    id: "fear-4",
-    category: "Fear",
-    reference: "Psalm 118:6",
-    text: "The Lord is with me; I will not be afraid. What can mere mortals do to me?",
-  },
-  {
-    id: "fear-5",
-    category: "Fear",
-    reference: "Isaiah 41:13",
-    text: "For I am the Lord your God who takes hold of your right hand and says to you, Do not fear.",
-  },
-  {
-    id: "fear-6",
-    category: "Fear",
-    reference: "Psalm 34:4",
-    text: "I sought the Lord, and he answered me; he delivered me from all my fears.",
-  },
-  {
-    id: "addiction-1",
-    category: "Addiction & Temptation",
-    reference: "1 Corinthians 10:13",
-    text: "No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear.",
-    reflection: "There is always a way through, even when it feels tight.",
-  },
-  {
-    id: "addiction-2",
-    category: "Addiction & Temptation",
-    reference: "James 4:7",
-    text: "Submit yourselves, then, to God. Resist the devil, and he will flee from you.",
-  },
-  {
-    id: "addiction-3",
-    category: "Addiction & Temptation",
-    reference: "Galatians 5:1",
-    text: "It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery.",
-  },
-  {
-    id: "addiction-4",
-    category: "Addiction & Temptation",
-    reference: "Romans 12:2",
-    text: "Do not conform to the pattern of this world, but be transformed by the renewing of your mind.",
-  },
-  {
-    id: "addiction-5",
-    category: "Addiction & Temptation",
-    reference: "Psalm 119:11",
-    text: "I have hidden your word in my heart that I might not sin against you.",
-  },
-  {
-    id: "addiction-6",
-    category: "Addiction & Temptation",
-    reference: "Titus 2:11–12",
-    text: "The grace of God has appeared that offers salvation to all people. It teaches us to say 'No' to ungodliness.",
-  },
-  {
-    id: "toxic-1",
-    category: "Toxic Relationships",
-    reference: "1 Corinthians 15:33",
-    text: "Do not be misled: Bad company corrupts good character.",
-  },
-  {
-    id: "toxic-2",
-    category: "Toxic Relationships",
-    reference: "Proverbs 4:23",
-    text: "Above all else, guard your heart, for everything you do flows from it.",
-  },
-  {
-    id: "toxic-3",
-    category: "Toxic Relationships",
-    reference: "Proverbs 13:20",
-    text: "Walk with the wise and become wise, for a companion of fools suffers harm.",
-  },
-  {
-    id: "toxic-4",
-    category: "Toxic Relationships",
-    reference: "Psalm 1:1",
-    text: "Blessed is the one who does not walk in step with the wicked.",
-  },
-  {
-    id: "toxic-5",
-    category: "Toxic Relationships",
-    reference: "Romans 12:18",
-    text: "If it is possible, as far as it depends on you, live at peace with everyone.",
-    reflection: "Peace is a goal, but boundaries can still be wise.",
-  },
-  {
-    id: "toxic-6",
-    category: "Toxic Relationships",
-    reference: "Proverbs 22:24–25",
-    text: "Do not make friends with a hot-tempered person. You may learn their ways and get yourself ensnared.",
-  },
-  {
-    id: "heartbreak-1",
-    category: "Heartbreak & Betrayal",
-    reference: "Psalm 147:3",
-    text: "He heals the brokenhearted and binds up their wounds.",
-  },
-  {
-    id: "heartbreak-2",
-    category: "Heartbreak & Betrayal",
-    reference: "Romans 8:28",
-    text: "In all things God works for the good of those who love him.",
-  },
-  {
-    id: "heartbreak-3",
-    category: "Heartbreak & Betrayal",
-    reference: "Psalm 34:18",
-    text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
-  },
-  {
-    id: "heartbreak-4",
-    category: "Heartbreak & Betrayal",
-    reference: "Isaiah 61:1",
-    text: "He has sent me to bind up the brokenhearted.",
-  },
-  {
-    id: "heartbreak-5",
-    category: "Heartbreak & Betrayal",
-    reference: "John 14:27",
-    text: "Peace I leave with you; my peace I give you.",
-  },
-  {
-    id: "heartbreak-6",
-    category: "Heartbreak & Betrayal",
-    reference: "Psalm 73:26",
-    text: "My flesh and my heart may fail, but God is the strength of my heart and my portion forever.",
-  },
-  {
-    id: "financial-1",
-    category: "Financial Stress",
-    reference: "Matthew 6:31–33",
-    text: "Do not worry, saying, 'What shall we eat?' Seek first his kingdom and his righteousness, and all these things will be given to you as well.",
-  },
-  {
-    id: "financial-2",
-    category: "Financial Stress",
-    reference: "Philippians 4:19",
-    text: "And my God will meet all your needs according to the riches of his glory in Christ Jesus.",
-  },
-  {
-    id: "financial-3",
-    category: "Financial Stress",
-    reference: "Proverbs 3:5–6",
-    text: "Trust in the Lord with all your heart and lean not on your own understanding.",
-  },
-  {
-    id: "financial-4",
-    category: "Financial Stress",
-    reference: "Psalm 37:25",
-    text: "I was young and now I am old, yet I have never seen the righteous forsaken or their children begging bread.",
-  },
-  {
-    id: "financial-5",
-    category: "Financial Stress",
-    reference: "Luke 12:24",
-    text: "Consider the ravens: They do not sow or reap, yet God feeds them. How much more valuable you are than birds!",
-  },
-  {
-    id: "financial-6",
-    category: "Financial Stress",
-    reference: "Psalm 46:1",
-    text: "God is our refuge and strength, an ever-present help in trouble.",
-  },
-  {
-    id: "hope-1",
-    category: "Hope & Encouragement",
-    reference: "Jeremiah 29:11",
-    text: "For I know the plans I have for you, declares the Lord, plans to give you hope and a future.",
-  },
-  {
-    id: "hope-2",
-    category: "Hope & Encouragement",
-    reference: "Romans 15:13",
-    text: "May the God of hope fill you with all joy and peace as you trust in him.",
-  },
-  {
-    id: "hope-3",
-    category: "Hope & Encouragement",
-    reference: "Isaiah 40:31",
-    text: "Those who hope in the Lord will renew their strength. They will soar on wings like eagles.",
-  },
-  {
-    id: "hope-4",
-    category: "Hope & Encouragement",
-    reference: "Psalm 31:24",
-    text: "Be strong and take heart, all you who hope in the Lord.",
-  },
-  {
-    id: "hope-5",
-    category: "Hope & Encouragement",
-    reference: "Hebrews 10:23",
-    text: "Let us hold unswervingly to the hope we profess, for he who promised is faithful.",
-  },
-  {
-    id: "hope-6",
-    category: "Hope & Encouragement",
-    reference: "2 Corinthians 4:16",
-    text: "Though outwardly we are wasting away, yet inwardly we are being renewed day by day.",
-  },
-  {
-    id: "faith-1",
-    category: "Faith When You Feel Weak",
-    reference: "2 Corinthians 12:9",
-    text: "My grace is sufficient for you, for my power is made perfect in weakness.",
-    reflection: "Weakness is not disqualifying; it is where grace meets you.",
-  },
-  {
-    id: "faith-2",
-    category: "Faith When You Feel Weak",
-    reference: "Psalm 73:26",
-    text: "My flesh and my heart may fail, but God is the strength of my heart.",
-  },
-  {
-    id: "faith-3",
-    category: "Faith When You Feel Weak",
-    reference: "Isaiah 40:29",
-    text: "He gives strength to the weary and increases the power of the weak.",
-  },
-  {
-    id: "faith-4",
-    category: "Faith When You Feel Weak",
-    reference: "Hebrews 4:16",
-    text: "Let us then approach God’s throne of grace with confidence, so that we may receive mercy.",
-  },
-  {
-    id: "faith-5",
-    category: "Faith When You Feel Weak",
-    reference: "Psalm 28:7",
-    text: "The Lord is my strength and my shield; my heart trusts in him.",
-  },
-  {
-    id: "faith-6",
-    category: "Faith When You Feel Weak",
-    reference: "Isaiah 41:10",
-    text: "Do not fear, for I am with you; I will strengthen you and help you.",
-  },
-  {
-    id: "peace-1",
-    category: "Peace & Rest",
-    reference: "Matthew 11:28",
-    text: "Come to me, all you who are weary and burdened, and I will give you rest.",
-  },
-  {
-    id: "peace-2",
-    category: "Peace & Rest",
-    reference: "Psalm 4:8",
-    text: "In peace I will lie down and sleep, for you alone, Lord, make me dwell in safety.",
-  },
-  {
-    id: "peace-3",
-    category: "Peace & Rest",
-    reference: "Isaiah 26:3",
-    text: "You will keep in perfect peace those whose minds are steadfast, because they trust in you.",
-  },
-  {
-    id: "peace-4",
-    category: "Peace & Rest",
-    reference: "John 14:27",
-    text: "Peace I leave with you; my peace I give you.",
-  },
-  {
-    id: "peace-5",
-    category: "Peace & Rest",
-    reference: "Psalm 62:5",
-    text: "Yes, my soul, find rest in God; my hope comes from him.",
-  },
-  {
-    id: "peace-6",
-    category: "Peace & Rest",
-    reference: "Philippians 4:7",
-    text: "And the peace of God, which transcends all understanding, will guard your hearts.",
-  },
-  {
-    id: "forgive-1",
-    category: "Forgiveness",
-    reference: "Ephesians 4:32",
-    text: "Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you.",
-  },
-  {
-    id: "forgive-2",
-    category: "Forgiveness",
-    reference: "Colossians 3:13",
-    text: "Bear with each other and forgive one another if any of you has a grievance.",
-  },
-  {
-    id: "forgive-3",
-    category: "Forgiveness",
-    reference: "1 John 1:9",
-    text: "If we confess our sins, he is faithful and just and will forgive us our sins.",
-  },
-  {
-    id: "forgive-4",
-    category: "Forgiveness",
-    reference: "Psalm 103:12",
-    text: "As far as the east is from the west, so far has he removed our transgressions from us.",
-  },
-  {
-    id: "forgive-5",
-    category: "Forgiveness",
-    reference: "Matthew 6:14",
-    text: "For if you forgive other people when they sin against you, your heavenly Father will also forgive you.",
-  },
-  {
-    id: "forgive-6",
-    category: "Forgiveness",
-    reference: "Micah 7:18",
-    text: "You delight to show mercy.",
-  },
-  {
-    id: "strength-1",
-    category: "Strength During Hard Times",
-    reference: "Psalm 46:1",
-    text: "God is our refuge and strength, an ever-present help in trouble.",
-  },
-  {
-    id: "strength-2",
-    category: "Strength During Hard Times",
-    reference: "Isaiah 43:2",
-    text: "When you pass through the waters, I will be with you.",
-  },
-  {
-    id: "strength-3",
-    category: "Strength During Hard Times",
-    reference: "Romans 8:38–39",
-    text: "Nothing will be able to separate us from the love of God that is in Christ Jesus our Lord.",
-  },
-  {
-    id: "strength-4",
-    category: "Strength During Hard Times",
-    reference: "Psalm 55:22",
-    text: "Cast your cares on the Lord and he will sustain you.",
-  },
-  {
-    id: "strength-5",
-    category: "Strength During Hard Times",
-    reference: "Nehemiah 8:10",
-    text: "The joy of the Lord is your strength.",
-  },
-  {
-    id: "strength-6",
-    category: "Strength During Hard Times",
-    reference: "Isaiah 41:13",
-    text: "I am the Lord your God who takes hold of your right hand and says, Do not fear.",
+const verseCategories = [
+  {
+    category: "Anxiety / Worry",
+    verses: [
+      {
+        reference: "Philippians 4:6–7",
+        text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.",
+        explanation:
+          "This verse reminds us that worry doesn’t have to stay trapped in our minds. God invites us to bring every concern to Him, even the small ones. When we do, His peace steps in and protects our hearts.",
+      },
+      {
+        reference: "Matthew 6:34",
+        text: "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own.",
+        explanation:
+          "God is telling you to stay in today. Tomorrow will come with its own answers. You are not meant to carry everything at once.",
+      },
+      {
+        reference: "1 Peter 5:7",
+        text: "Cast all your anxiety on him because he cares for you.",
+        explanation:
+          "You are not annoying God with your worries. He actually wants to carry them for you because He cares deeply about you.",
+      },
+      {
+        reference: "Psalm 94:19",
+        text: "When anxiety was great within me, your consolation brought me joy.",
+        explanation:
+          "When your thoughts feel overwhelming, God knows how to calm your heart. His comfort can bring peace even in mental chaos.",
+      },
+      {
+        reference: "Isaiah 41:10",
+        text: "So do not fear, for I am with you; do not be dismayed, for I am your God.",
+        explanation:
+          "Fear doesn’t mean you’re alone. God promises to stay with you and strengthen you when you feel weak or unsure.",
+      },
+      {
+        reference: "Psalm 56:3",
+        text: "When I am afraid, I put my trust in you.",
+        explanation:
+          "Fear happens, but trust is a choice. This verse reminds us we can lean on God even while we’re afraid.",
+      },
+    ],
+  },
+  {
+    category: "Brokenhearted / Depression",
+    verses: [
+      {
+        reference: "Psalm 34:18",
+        text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
+        explanation:
+          "Feeling broken does not push God away. It actually draws Him closer. He is near when you feel low.",
+      },
+      {
+        reference: "Lamentations 3:22–23",
+        text: "Because of the Lord’s great love we are not consumed, for his compassions never fail. They are new every morning.",
+        explanation:
+          "Even after hard days, God’s mercy resets each morning. Yesterday doesn’t define today.",
+      },
+      {
+        reference: "Psalm 42:11",
+        text: "Why, my soul, are you downcast? Put your hope in God, for I will yet praise him.",
+        explanation:
+          "It’s okay to admit when your soul feels heavy. This verse encourages you to speak hope to yourself and keep trusting God.",
+      },
+      {
+        reference: "Isaiah 53:4",
+        text: "Surely he took up our pain and bore our suffering.",
+        explanation:
+          "God understands pain personally. Jesus experienced suffering, so your pain is not invisible or misunderstood.",
+      },
+      {
+        reference: "Psalm 30:5",
+        text: "Weeping may stay for the night, but rejoicing comes in the morning.",
+        explanation:
+          "Pain may last, but it is not permanent. Joy has a way of returning, even after long nights.",
+      },
+      {
+        reference: "John 16:33",
+        text: "In this world you will have trouble. But take heart! I have overcome the world.",
+        explanation:
+          "Life will have struggles, but Jesus reminds us that He has already overcome them. You are not fighting alone.",
+      },
+    ],
+  },
+  {
+    category: "Loneliness / God With You",
+    verses: [
+      {
+        reference: "Psalm 68:6",
+        text: "God sets the lonely in families.",
+        explanation:
+          "Loneliness is not your final destination. God creates connection, belonging, and family in unexpected ways.",
+      },
+      {
+        reference: "Matthew 28:20",
+        text: "Surely I am with you always, to the very end of the age.",
+        explanation:
+          "God’s presence doesn’t expire. He stays with you through every season of life.",
+      },
+      {
+        reference: "Psalm 23:4",
+        text: "Even though I walk through the darkest valley, I will fear no evil, for you are with me.",
+        explanation:
+          "Even in your darkest moments, you are not abandoned. God walks beside you through every valley.",
+      },
+      {
+        reference: "Isaiah 43:2",
+        text: "When you pass through the waters, I will be with you.",
+        explanation:
+          "Hard seasons may come, but they will not destroy you. God promises His presence through them.",
+      },
+      {
+        reference: "Hebrews 13:5",
+        text: "Never will I leave you; never will I forsake you.",
+        explanation:
+          "God does not walk away when life gets messy. His commitment to you is steady and unchanging.",
+      },
+    ],
+  },
+  {
+    category: "Fear / Courage",
+    verses: [
+      {
+        reference: "Deuteronomy 31:6",
+        text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+        explanation:
+          "You don’t have to be fearless to move forward. God promises to walk with you wherever life takes you.",
+      },
+      {
+        reference: "Joshua 1:9",
+        text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+        explanation:
+          "Courage doesn’t come from confidence alone — it comes from knowing God is with you.",
+      },
+      {
+        reference: "2 Timothy 1:7",
+        text: "For God has not given us a spirit of fear, but of power, love, and a sound mind.",
+        explanation:
+          "Fear is not from God. He gives strength, love, and clarity even when anxiety tries to take over.",
+      },
+      {
+        reference: "Psalm 118:6",
+        text: "The Lord is with me; I will not be afraid. What can mere mortals do to me?",
+        explanation: "When God stands with you, fear doesn’t get the final word.",
+      },
+      {
+        reference: "Isaiah 41:13",
+        text: "For I am the Lord your God who takes hold of your right hand and says to you, Do not fear.",
+        explanation:
+          "God is not distant. He holds your hand and reassures you when fear feels close.",
+      },
+      {
+        reference: "Psalm 34:4",
+        text: "I sought the Lord, and he answered me; he delivered me from all my fears.",
+        explanation: "God listens. When you seek Him, He helps free you from fear’s grip.",
+      },
+    ],
+  },
+  {
+    category: "Temptation / Freedom / Growth",
+    verses: [
+      {
+        reference: "1 Corinthians 10:13",
+        text: "No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear.",
+        explanation:
+          "You are never trapped with no way out. God always provides a path forward, even in difficult moments.",
+      },
+      {
+        reference: "James 4:7",
+        text: "Submit yourselves, then, to God. Resist the devil, and he will flee from you.",
+        explanation:
+          "When you turn toward God, harmful influences lose their power over you.",
+      },
+      {
+        reference: "Galatians 5:1",
+        text: "It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery.",
+        explanation: "God wants you free — not weighed down by guilt, fear, or past mistakes.",
+      },
+      {
+        reference: "Romans 12:2",
+        text: "Do not conform to the pattern of this world, but be transformed by the renewing of your mind.",
+        explanation:
+          "Change begins in the mind. God helps renew your thinking so you can grow into who you’re meant to be.",
+      },
+      {
+        reference: "Psalm 119:11",
+        text: "I have hidden your word in my heart that I might not sin against you.",
+        explanation:
+          "Keeping God’s word close helps guide your choices and protect your heart.",
+      },
+      {
+        reference: "Titus 2:11–12",
+        text: "The grace of God has appeared that offers salvation to all people. It teaches us to say 'No' to ungodliness.",
+        explanation: "God’s grace doesn’t just forgive — it teaches and shapes how we live.",
+      },
+    ],
+  },
+  {
+    category: "Relationships / Boundaries",
+    verses: [
+      {
+        reference: "1 Corinthians 15:33",
+        text: "Do not be misled: Bad company corrupts good character.",
+        explanation:
+          "The people around you influence you. This verse encourages wisdom in choosing close relationships.",
+      },
+      {
+        reference: "Proverbs 4:23",
+        text: "Above all else, guard your heart, for everything you do flows from it.",
+        explanation: "Your heart matters. Protecting it helps shape your future.",
+      },
+      {
+        reference: "Proverbs 13:20",
+        text: "Walk with the wise and become wise, for a companion of fools suffers harm.",
+        explanation:
+          "Wisdom grows through good company. Who you walk with matters.",
+      },
+      {
+        reference: "Psalm 1:1",
+        text: "Blessed is the one who does not walk in step with the wicked.",
+        explanation:
+          "You don’t have to follow harmful paths to belong. God blesses those who choose wisely.",
+      },
+      {
+        reference: "Romans 12:18",
+        text: "If it is possible, as far as it depends on you, live at peace with everyone.",
+        explanation: "Peace is valuable, but it’s okay to set boundaries when needed.",
+      },
+      {
+        reference: "Proverbs 22:24–25",
+        text: "Do not make friends with a hot-tempered person. You may learn their ways and get yourself ensnared.",
+        explanation:
+          "Some relationships can pull you into unhealthy patterns. God encourages discernment.",
+      },
+    ],
+  },
+  {
+    category: "Healing / Hope / Provision",
+    verses: [
+      {
+        reference: "Psalm 147:3",
+        text: "He heals the brokenhearted and binds up their wounds.",
+        explanation:
+          "God doesn’t ignore wounds — He heals them gently and intentionally.",
+      },
+      {
+        reference: "Romans 8:28",
+        text: "In all things God works for the good of those who love him.",
+        explanation:
+          "Even painful experiences can be woven into something meaningful by God.",
+      },
+      {
+        reference: "John 14:27",
+        text: "Peace I leave with you; my peace I give you.",
+        explanation:
+          "God’s peace is different from the world’s peace. It can settle your heart even when life is noisy.",
+      },
+      {
+        reference: "Matthew 6:31–33",
+        text: "Do not worry, saying, 'What shall we eat?' Seek first his kingdom and his righteousness, and all these things will be given to you as well.",
+        explanation:
+          "God knows your needs. When you trust Him first, He takes care of the rest.",
+      },
+      {
+        reference: "Philippians 4:19",
+        text: "And my God will meet all your needs according to the riches of his glory in Christ Jesus.",
+        explanation: "You are not forgotten. God promises to provide what you truly need.",
+      },
+      {
+        reference: "Proverbs 3:5–6",
+        text: "Trust in the Lord with all your heart and lean not on your own understanding.",
+        explanation:
+          "You don’t have to understand everything. Trusting God leads to clearer paths.",
+      },
+      {
+        reference: "Jeremiah 29:11",
+        text: "For I know the plans I have for you, declares the Lord, plans to give you hope and a future.",
+        explanation: "Your story still has hope ahead. God’s plans include a future.",
+      },
+      {
+        reference: "Romans 15:13",
+        text: "May the God of hope fill you with all joy and peace as you trust in him.",
+        explanation:
+          "Trusting God brings joy and peace, even in uncertain times.",
+      },
+      {
+        reference: "Isaiah 40:31",
+        text: "Those who hope in the Lord will renew their strength. They will soar on wings like eagles.",
+        explanation: "Waiting on God renews strength when exhaustion sets in.",
+      },
+    ],
+  },
+  {
+    category: "Rest / Calm",
+    verses: [
+      {
+        reference: "Matthew 11:28",
+        text: "Come to me, all you who are weary and burdened, and I will give you rest.",
+        explanation: "God invites the tired and overwhelmed to rest in Him.",
+      },
+      {
+        reference: "Psalm 4:8",
+        text: "In peace I will lie down and sleep, for you alone, Lord, make me dwell in safety.",
+        explanation: "Peaceful rest comes from trusting God’s protection.",
+      },
+      {
+        reference: "Isaiah 26:3",
+        text: "You will keep in perfect peace those whose minds are steadfast, because they trust in you.",
+        explanation: "Trust anchors the mind and brings deep peace.",
+      },
+      {
+        reference: "Psalm 62:5",
+        text: "Yes, my soul, find rest in God; my hope comes from him.",
+        explanation: "True rest comes from God, not circumstances.",
+      },
+      {
+        reference: "Philippians 4:7",
+        text: "And the peace of God, which transcends all understanding, will guard your hearts.",
+        explanation:
+          "God’s peace protects your heart beyond what logic can explain.",
+      },
+    ],
+  },
+  {
+    category: "Forgiveness / Mercy",
+    verses: [
+      {
+        reference: "Ephesians 4:32",
+        text: "Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you.",
+        explanation:
+          "Kindness and forgiveness reflect how God treats us.",
+      },
+      {
+        reference: "Colossians 3:13",
+        text: "Bear with each other and forgive one another if any of you has a grievance.",
+        explanation: "Forgiveness is a process, and God helps us through it.",
+      },
+      {
+        reference: "1 John 1:9",
+        text: "If we confess our sins, he is faithful and just and will forgive us our sins.",
+        explanation: "Confession leads to cleansing and renewal.",
+      },
+      {
+        reference: "Psalm 103:12",
+        text: "As far as the east is from the west, so far has he removed our transgressions from us.",
+        explanation: "God removes guilt completely — not halfway.",
+      },
+      {
+        reference: "Micah 7:18",
+        text: "You delight to show mercy.",
+        explanation: "God delights in mercy more than punishment.",
+      },
+      {
+        reference: "Romans 8:38–39",
+        text: "Nothing will be able to separate us from the love of God that is in Christ Jesus our Lord.",
+        explanation: "Nothing can separate you from God’s love.",
+      },
+    ],
   },
 ];
 
 // Display order for categories on the homepage.
-const categoryOrder = [
-  "Anxiety & Worry",
-  "Depression & Sadness",
-  "Loneliness",
-  "Fear",
-  "Addiction & Temptation",
-  "Toxic Relationships",
-  "Heartbreak & Betrayal",
-  "Financial Stress",
-  "Hope & Encouragement",
-  "Faith When You Feel Weak",
-  "Peace & Rest",
-  "Forgiveness",
-  "Strength During Hard Times",
-];
+const categoryOrder = verseCategories.map((entry) => entry.category);
 
 // Short, comforting descriptions for each category.
 const categoryDescriptions = {
-  "Anxiety & Worry": "Steady breaths and gentle reminders that God hears every anxious thought.",
-  "Depression & Sadness": "Verses that sit with your sadness while offering light for the next step.",
-  Loneliness: "Promises that you are not forgotten, even in quiet seasons.",
-  Fear: "Assurance that God’s presence is bigger than what frightens you.",
-  "Addiction & Temptation": "Words of strength for every moment you choose freedom again.",
-  "Toxic Relationships": "Wisdom for setting healthy boundaries and protecting your peace.",
-  "Heartbreak & Betrayal": "Comfort for the hurt, and hope for healing over time.",
-  "Financial Stress": "Gentle encouragement to trust God’s provision day by day.",
-  "Hope & Encouragement": "Promises that remind you brighter days are still ahead.",
-  "Faith When You Feel Weak": "Grace-filled verses for when faith feels fragile.",
-  "Peace & Rest": "Invitations to lay down burdens and receive calm.",
-  Forgiveness: "Mercy for you, and a soft path toward forgiving others.",
-  "Strength During Hard Times": "Support for enduring seasons, with God close beside you.",
+  "Anxiety / Worry": "Steady breaths and gentle reminders that God hears every anxious thought.",
+  "Brokenhearted / Depression":
+    "Verses that sit with your sadness while offering light for the next step.",
+  "Loneliness / God With You": "Promises that you are not forgotten, even in quiet seasons.",
+  "Fear / Courage": "Assurance that God’s presence is bigger than what frightens you.",
+  "Temptation / Freedom / Growth":
+    "Words of strength for every moment you choose freedom again.",
+  "Relationships / Boundaries":
+    "Wisdom for setting healthy boundaries and protecting your peace.",
+  "Healing / Hope / Provision":
+    "Comfort for the hurt, and hope for healing over time.",
+  "Rest / Calm": "Invitations to lay down burdens and receive calm.",
+  "Forgiveness / Mercy": "Mercy for you, and a soft path toward forgiving others.",
 };
 
 const moodColors = {
@@ -524,20 +389,26 @@ const moodColors = {
 };
 
 const categoryMoodMap = {
-  "Anxiety & Worry": "anxiety",
-  "Depression & Sadness": "depression",
-  Loneliness: "loneliness",
-  Fear: "anxiety",
-  "Addiction & Temptation": "toxic",
-  "Toxic Relationships": "toxic",
-  "Heartbreak & Betrayal": "depression",
-  "Financial Stress": "finance",
-  "Hope & Encouragement": "faith",
-  "Faith When You Feel Weak": "faith",
-  "Peace & Rest": "faith",
-  Forgiveness: "faith",
-  "Strength During Hard Times": "faith",
+  "Anxiety / Worry": "anxiety",
+  "Brokenhearted / Depression": "depression",
+  "Loneliness / God With You": "loneliness",
+  "Fear / Courage": "anxiety",
+  "Temptation / Freedom / Growth": "toxic",
+  "Relationships / Boundaries": "toxic",
+  "Healing / Hope / Provision": "faith",
+  "Rest / Calm": "faith",
+  "Forgiveness / Mercy": "faith",
 };
+
+const getVersesForCategory = (category) => {
+  const entry = verseCategories.find((item) => item.category === category);
+  return entry ? entry.verses : [];
+};
+
+const getAllVerses = () =>
+  verseCategories.flatMap((entry) =>
+    entry.verses.map((verse) => ({ ...verse, category: entry.category }))
+  );
 
 const categoryGrid = document.getElementById("category-grid");
 const categoryTitle = document.getElementById("category-title");
@@ -629,7 +500,7 @@ const handleCategorySelection = (card) => {
 const renderCategories = () => {
   categoryGrid.innerHTML = "";
   categoryOrder.forEach((category) => {
-    const count = verses.filter((verse) => verse.category === category).length;
+    const count = getVersesForCategory(category).length;
     const card = document.createElement("button");
     card.type = "button";
     card.className = "category-card";
@@ -671,11 +542,11 @@ const buildVerseCard = (verse) => {
   reference.className = "verse-ref";
   reference.textContent = verse.reference;
 
-  const reflection = verse.reflection
+  const explanation = verse.explanation
     ? (() => {
         const note = document.createElement("p");
-        note.className = "reflection";
-        note.textContent = verse.reflection;
+        note.className = "verse-explanation";
+        note.textContent = verse.explanation;
         return note;
       })()
     : null;
@@ -698,8 +569,8 @@ const buildVerseCard = (verse) => {
   actions.append(copyButton, shareButton);
 
   card.append(text, reference);
-  if (reflection) {
-    card.appendChild(reflection);
+  if (explanation) {
+    card.appendChild(explanation);
   }
   card.appendChild(actions);
 
@@ -708,10 +579,7 @@ const buildVerseCard = (verse) => {
 
 // Render verse cards based on selected category.
 const renderVerses = () => {
-  const filtered = verses.filter((verse) => {
-    const matchesCategory = selectedCategory ? verse.category === selectedCategory : true;
-    return matchesCategory;
-  });
+  const filtered = selectedCategory ? getVersesForCategory(selectedCategory) : getAllVerses();
 
   verseList.innerHTML = "";
   filtered.forEach((verse) => {
@@ -741,7 +609,7 @@ const copyToClipboard = async (text) => {
 
 // Copy verse text and reference to clipboard.
 const copyVerse = async (verse) => {
-  const message = `“${verse.text}” — ${verse.reference}`;
+  const message = `“${verse.text}” — ${verse.reference}\nExplanation: ${verse.explanation}`;
   try {
     const success = await copyToClipboard(message);
     status.textContent = success ? "Verse copied to clipboard." : "Copy not supported on this device.";
@@ -752,7 +620,7 @@ const copyVerse = async (verse) => {
 
 // Share via Web Share API or fallback to copy.
 const shareVerse = async (verse) => {
-  const message = `“${verse.text}” — ${verse.reference}`;
+  const message = `“${verse.text}” — ${verse.reference}\nExplanation: ${verse.explanation}`;
   if (navigator.share) {
     try {
       await navigator.share({
