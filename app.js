@@ -291,6 +291,47 @@ const verseCategories = [
     ],
   },
   {
+    category: "Illness & Healing",
+    verses: [
+      {
+        reference: "Isaiah 53:5",
+        text: "By his wounds we are healed.",
+        explanation:
+          "This verse reminds us that healing is close to God’s heart. Whether healing is physical, emotional, or spiritual, God sees your pain and cares deeply about your restoration.",
+      },
+      {
+        reference: "Jeremiah 17:14",
+        text: "Heal me, Lord, and I will be healed; save me and I will be saved.",
+        explanation:
+          "This is a simple and honest prayer. It reminds us that true healing comes from God, and we are allowed to ask Him directly for help.",
+      },
+      {
+        reference: "Psalm 41:3",
+        text: "The Lord sustains them on their sickbed and restores them from their bed of illness.",
+        explanation:
+          "God does not abandon you when your body feels weak. He stays close, giving strength even while you rest and recover.",
+      },
+      {
+        reference: "2 Corinthians 12:9",
+        text: "My grace is sufficient for you, for my power is made perfect in weakness.",
+        explanation:
+          "Feeling weak does not mean you are failing. God’s strength often shows up most clearly when we don’t have any left of our own.",
+      },
+      {
+        reference: "Psalm 103:2–3",
+        text: "Praise the Lord, my soul, and forget not all his benefits—who forgives all your sins and heals all your diseases.",
+        explanation:
+          "This verse reminds us that God is both forgiving and healing. He cares for the whole person, not just one part of your life.",
+      },
+      {
+        reference: "Exodus 15:26",
+        text: "I am the Lord, who heals you.",
+        explanation:
+          "God identifies Himself as a healer. This verse offers reassurance that healing is part of His nature, not an afterthought.",
+      },
+    ],
+  },
+  {
     category: "Rest / Calm",
     verses: [
       {
@@ -375,6 +416,8 @@ const categoryDescriptions = {
     "Wisdom for setting healthy boundaries and protecting your peace.",
   "Healing / Hope / Provision":
     "Comfort for the hurt, and hope for healing over time.",
+  "Illness & Healing":
+    "Promises of God’s steady presence and care through sickness and recovery.",
   "Rest / Calm": "Invitations to lay down burdens and receive calm.",
   "Forgiveness / Mercy": "Mercy for you, and a soft path toward forgiving others.",
 };
@@ -396,8 +439,17 @@ const categoryMoodMap = {
   "Temptation / Freedom / Growth": "toxic",
   "Relationships / Boundaries": "toxic",
   "Healing / Hope / Provision": "faith",
+  "Illness & Healing": "custom",
   "Rest / Calm": "faith",
   "Forgiveness / Mercy": "faith",
+};
+
+const customCategoryStyles = {
+  "Illness & Healing": {
+    backgroundColor: "#4CAF50",
+    textColor: "#000000",
+    glow: "rgba(76, 175, 80, 0.35)",
+  },
 };
 
 const getVersesForCategory = (category) => {
@@ -506,6 +558,10 @@ const renderCategories = () => {
     card.className = "category-card";
     card.dataset.category = category;
     card.dataset.mood = categoryMoodMap[category] || "faith";
+    if (customCategoryStyles[category]) {
+      card.dataset.customStyle = "true";
+      card.classList.add("category-card--custom");
+    }
     if (selectedCategory === category) {
       card.classList.add("active");
       card.setAttribute("aria-pressed", "true");
@@ -643,6 +699,15 @@ const shareVerse = async (verse) => {
 const hydrateCategoryCards = () => {
   const cards = document.querySelectorAll(".category-card");
   cards.forEach((card) => {
+    if (card.dataset.customStyle === "true") {
+      const styles = customCategoryStyles[card.dataset.category];
+      if (styles) {
+        card.style.backgroundColor = styles.backgroundColor;
+        card.style.color = styles.textColor;
+        card.style.boxShadow = `0 16px 36px ${styles.glow}`;
+      }
+      return;
+    }
     const mood = card.dataset.mood;
     if (mood && moodColors[mood]) {
       card.style.backgroundColor = moodColors[mood];
