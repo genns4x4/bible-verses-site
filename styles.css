@@ -228,6 +228,112 @@ html {
   color: #000000;
 }
 
+.category-card--music {
+  background: #1b2a41;
+  color: var(--text);
+  box-shadow: 0 16px 34px rgba(27, 42, 65, 0.45);
+  border-color: rgba(120, 150, 200, 0.25);
+}
+
+.category-card--music span,
+.category-card--music small {
+  color: var(--text);
+}
+
+.category-card--music:hover {
+  box-shadow: 0 20px 38px rgba(100, 130, 200, 0.35);
+}
+
+.music-section {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.music-section.is-hidden {
+  display: none;
+}
+
+.music-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.music-tab {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, color 200ms ease,
+    background 200ms ease;
+}
+
+.music-tab:hover {
+  transform: translateY(-2px);
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.25);
+}
+
+.music-tab.active {
+  color: #f6e7b6;
+  background: rgba(246, 231, 182, 0.18);
+  border-color: rgba(246, 231, 182, 0.4);
+  box-shadow: 0 0 16px rgba(246, 231, 182, 0.3);
+}
+
+.music-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.music-panel {
+  display: grid;
+  gap: 1.25rem;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.music-panel.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  max-height: 2000px;
+}
+
+.music-embed {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.music-embed p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.music-embed iframe {
+  width: 100%;
+  max-width: 720px;
+  height: 260px;
+  border: 0;
+  border-radius: 16px;
+  background: #0b0f14;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
 
 .category-detail {
   background: var(--panel);
@@ -489,6 +595,19 @@ html {
     display: inline-flex;
     width: 100%;
     justify-content: center;
+  }
+
+  .music-tabs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .music-tab {
+    width: 100%;
+  }
+
+  .music-embed iframe {
+    height: 230px;
   }
 }
 
