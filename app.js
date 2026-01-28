@@ -475,6 +475,9 @@ const checkinForm = document.getElementById("checkin-form");
 const checkinText = document.getElementById("checkin-text");
 const checkinList = document.getElementById("checkin-list");
 const checkinConfirmation = document.getElementById("checkin-confirmation");
+const musicSection = document.getElementById("music-section");
+const musicTabs = document.querySelectorAll(".music-tab");
+const musicPanels = document.querySelectorAll(".music-panel");
 const CHECKIN_KEY = "anonymousCheckins";
 
 let selectedCategory = null;
@@ -529,6 +532,7 @@ const setVersesHeading = (label) => {
 };
 
 const handleCategorySelection = (card) => {
+  hideMusicSection();
   const categoryKey = card.dataset.category || card.dataset.mood;
   if (!categoryKey) return;
 
@@ -575,6 +579,16 @@ const renderCategories = () => {
     card.addEventListener("click", () => handleCategorySelection(card));
     categoryGrid.appendChild(card);
   });
+  const musicCard = document.createElement("button");
+  musicCard.type = "button";
+  musicCard.className = "category-card category-card--music";
+  musicCard.id = "music-card";
+  musicCard.innerHTML = `
+    <span>🎵 Music</span>
+    <small>3 calming tabs</small>
+  `;
+  musicCard.addEventListener("click", () => showMusicSection());
+  categoryGrid.appendChild(musicCard);
   hydrateCategoryCards();
   if (hasAnimatedCards) {
     document.querySelectorAll(".category-card").forEach((card) => {
@@ -727,6 +741,54 @@ const animateCategoryCards = () => {
   });
 };
 
+const resetMusicEmbeds = (panelsToReset) => {
+  panelsToReset.forEach((panel) => {
+    const iframes = panel.querySelectorAll("iframe");
+    iframes.forEach((iframe) => {
+      const src = iframe.dataset.src || iframe.getAttribute("src");
+      if (!src) return;
+      iframe.dataset.src = src;
+      iframe.setAttribute("src", "");
+      requestAnimationFrame(() => {
+        iframe.setAttribute("src", src);
+      });
+    });
+  });
+};
+
+const setActiveMusicTab = (tabId) => {
+  if (!musicSection) return;
+  musicTabs.forEach((tab) => {
+    const isActive = tab.dataset.tab === tabId;
+    tab.classList.toggle("active", isActive);
+    tab.setAttribute("aria-selected", isActive ? "true" : "false");
+  });
+  musicPanels.forEach((panel) => {
+    const isActive = panel.id === `music-panel-${tabId}`;
+    panel.classList.toggle("active", isActive);
+  });
+  const inactivePanels = Array.from(musicPanels).filter(
+    (panel) => !panel.classList.contains("active")
+  );
+  resetMusicEmbeds(inactivePanels);
+};
+
+const showMusicSection = () => {
+  if (!musicSection) return;
+  musicSection.classList.remove("is-hidden");
+  if (!musicTabs.length) return;
+  const defaultTab = Array.from(musicTabs).find((tab) => tab.dataset.tab === "worship");
+  if (defaultTab && !defaultTab.classList.contains("active")) {
+    setActiveMusicTab("worship");
+  }
+  musicSection.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+const hideMusicSection = () => {
+  if (!musicSection) return;
+  musicSection.classList.add("is-hidden");
+};
+
 const getStoredCheckins = () => {
   if (!localStorage.getItem(CHECKIN_KEY)) {
     return [];
@@ -820,6 +882,18 @@ document.addEventListener("DOMContentLoaded", () => {
   setCategory(initialCategory, { updateUrl: false });
   renderCheckins();
   toggleScrollTopButton();
+
+  if (musicTabs.length) {
+    setActiveMusicTab("worship");
+    musicTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+        if (target) {
+          setActiveMusicTab(target);
+        }
+      });
+    });
+  }
 
   if (checkinForm) {
     checkinForm.addEventListener("submit", handleCheckinSubmit);
