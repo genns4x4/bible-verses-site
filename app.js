@@ -471,6 +471,7 @@ const verseList = document.getElementById("verses-container");
 const status = document.getElementById("status");
 const backButton = document.getElementById("back-to-categories");
 const scrollTopButton = document.getElementById("scroll-top");
+const musicFab = document.getElementById("musicFab");
 const checkinForm = document.getElementById("checkin-form");
 const checkinText = document.getElementById("checkin-text");
 const checkinList = document.getElementById("checkin-list");
@@ -579,16 +580,6 @@ const renderCategories = () => {
     card.addEventListener("click", () => handleCategorySelection(card));
     categoryGrid.appendChild(card);
   });
-  const musicCard = document.createElement("button");
-  musicCard.type = "button";
-  musicCard.className = "category-card category-card--music";
-  musicCard.id = "music-card";
-  musicCard.innerHTML = `
-    <span>🎵 Music</span>
-    <small>3 calming tabs</small>
-  `;
-  musicCard.addEventListener("click", () => showMusicSection());
-  categoryGrid.appendChild(musicCard);
   hydrateCategoryCards();
   if (hasAnimatedCards) {
     document.querySelectorAll(".category-card").forEach((card) => {
@@ -902,6 +893,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (scrollTopButton) {
     scrollTopButton.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  if (musicFab) {
+    musicFab.addEventListener("click", () => {
+      showMusicSection();
     });
   }
 
